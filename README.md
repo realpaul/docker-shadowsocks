@@ -1,5 +1,10 @@
 # docker-shadowsocks
-Dockerized Shadowsocks Server base on Docker alpine image.
+[Dockerized Shadowsocks Server][hub] base on Docker [Alpine Linux](http://alpinelinux.org/) image. The image is only about 19 MB to download.
+
+[![Docker Stars](https://img.shields.io/docker/stars/realpaul/docker-shadowsocks.svg)][hub]
+[![Docker Pulls](https://img.shields.io/docker/pulls/realpaul/docker-shadowsocks.svg)][hub]
+[![Docker Layers](https://badge.imagelayers.io/realpaul/docker-shadowsocks:latest.svg)](https://imagelayers.io/?images=realpaul/docker-shadowsocks:latest 'Get your own badge on imagelayers.io')
+[hub]: https://hub.docker.com/r/realpaul/docker-shadowsocks/
 
 ## Get Started
 Start to use dockerized Shadowsocks Server with just one line:
