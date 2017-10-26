@@ -1,38 +1,36 @@
 # docker-shadowsocks
-[Dockerized Shadowsocks Server][hub] base on Docker [Alpine Linux](http://alpinelinux.org/) image. The image is only about 19 MB to download.
+Dockerized Shadowsocks Server with simple-obfs and kcptun embedded.
 
-[![Docker Stars](https://img.shields.io/docker/stars/realpaul/docker-shadowsocks.svg)][hub]
-[![Docker Pulls](https://img.shields.io/docker/pulls/realpaul/docker-shadowsocks.svg)][hub]
-[![Docker Layers](https://badge.imagelayers.io/realpaul/docker-shadowsocks:latest.svg)](https://imagelayers.io/?images=realpaul/docker-shadowsocks:latest 'Get your own badge on imagelayers.io')
-[hub]: https://hub.docker.com/r/realpaul/docker-shadowsocks/
+![Docker Stars](https://img.shields.io/docker/stars/realpaul/docker-shadowsocks.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/realpaul/docker-shadowsocks.svg)
+![Docker Layers](https://badge.imagelayers.io/realpaul/docker-shadowsocks:latest.svg)
+
+Docker Hub Address: https://hub.docker.com/r/realpaul/docker-shadowsocks/
 
 ## Get Started
 Start to use dockerized Shadowsocks Server with just one line:
 ```
-docker run -d -p 8388:8388 realpaul/docker-shadowsocks -p 8388 -k password -m aes-256-cfb --fast-open --workers 10
+docker run --detach --name my_shadowsocks --restart unless-stopped \
+  --env KCPTUN_OVER_OBFS=true \
+  --publish 443:443 --publish 993:993 --publish 53:53/udp \
+  realpaul/docker-shadowsocks
 ```
 
-## Shadowsocks Server Command Line Options
-```
-Proxy options:
-  -c CONFIG              path to config file
-  -s SERVER_ADDR         server address, default: 0.0.0.0
-  -p SERVER_PORT         server port, default: 8388
-  -k PASSWORD            password
-  -m METHOD              encryption method, default: aes-256-cfb
-  -t TIMEOUT             timeout in seconds, default: 300
-  --fast-open            use TCP_FASTOPEN, requires Linux 3.7+
-  --workers WORKERS      number of workers, available on Unix/Linux
-  --forbidden-ip IPLIST  comma seperated IP list forbidden to connect
-  --manager-address ADDR optional server manager UDP address, see wiki
+## Server Configuration
+There are configurable items for Shadowsocks, Simple-Obfs and Kcptun, and they can be set through environment variables. For example, if you want to change Shadowsocks port, just add environment variable into Docker command like ```--env SHADOWSOCKS_PORT=1080```.
 
-General options:
-  -h, --help             show this help message and exit
-  -d start/stop/restart  daemon mode
-  --pid-file PID_FILE    pid file for daemon mode
-  --log-file LOG_FILE    log file for daemon mode
-  --user USER            username to run as
-  -v, -vv                verbose mode
-  -q, -qq                quiet mode, only show warnings/errors
-  --version              show version information
-```
+### Shadowsocks Server
+- SHADOWSOCKS_PORT: Shadowsocks Server port. Default is 443. This variable needs to keep the same as published port. For example: ```--env SHADOWSOCKS_PORT=1080 --publish 1080:1080```.
+- SHADOWSOCKS_PASSWORD: Shadowsocks Server password. Default is test123.
+- SHADOWSOCKS_CRYPTO: Shadowsocks Server crypto. Default is aes-256-cfb. You can choose from rc4-md5, aes-128-gcm, aes-192-gcm, aes-256-gcm, aes-128-cfb, aes-192-cfb, aes-256-cfb, aes-128-ctr, aes-192-ctr, aes-256-ctr, camellia-128-cfb, camellia-192-cfb, camellia-256-cfb, bf-cfb, chacha20-ietf-poly1305, xchacha20-ietf-poly1305, salsa20, chacha20 and chacha20-ietf.
+- SHADOWSOCKS_WORKERS: Shadowsocks Server workers. This is to set how many processes you want to launch up for Shadowsocks Server. Default is 10.
+
+### Simple Obfs Server
+- OBFS_PORT: Obfs Server port. Default is 993. This variable needs to keep the same as published port. For example: ```--env OBFS_PORT=8080 --publish 8080:8080```.
+- OBFS_PROTOCOL: Obfs Server protocol. Default is tls. You can choose between http and tls. For tls, this is only well supported by Linux/macOS based library currently.
+
+### Kcptun Server
+- KCPTUN_PORT: Kcptun Server port. Default is UDP 53. This variable needs to keep the same as published port. For example: ```--env KCPTUN_PORT=67 --publish 67:67/udp```.
+- KCPTUN_MODE: Kcptun Server mode. Default is fast. You can choose from fast3, fast2, fast, normal.
+- KCPTUN_KEY: Kcptun Server key. Default is test123.
+- KCPTUN_CRYPTO: Kcptun Server crypto. Default is aes-192. You can choose from aes, aes-128, aes-192, salsa20, blowfish, twofish, cast5, 3des, tea, xtea, xor, sm4, none.
