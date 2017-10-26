@@ -23,7 +23,6 @@ There are configurable items for Shadowsocks, Simple-Obfs and Kcptun, and they c
 - SHADOWSOCKS_PORT: Shadowsocks Server port. Default is 443. This variable needs to keep the same as published port. For example: ```--env SHADOWSOCKS_PORT=1080 --publish 1080:1080```.
 - SHADOWSOCKS_PASSWORD: Shadowsocks Server password. Default is test123.
 - SHADOWSOCKS_CRYPTO: Shadowsocks Server crypto. Default is aes-256-cfb. You can choose from rc4-md5, aes-128-gcm, aes-192-gcm, aes-256-gcm, aes-128-cfb, aes-192-cfb, aes-256-cfb, aes-128-ctr, aes-192-ctr, aes-256-ctr, camellia-128-cfb, camellia-192-cfb, camellia-256-cfb, bf-cfb, chacha20-ietf-poly1305, xchacha20-ietf-poly1305, salsa20, chacha20 and chacha20-ietf.
-- SHADOWSOCKS_WORKERS: Shadowsocks Server workers. This is to set how many processes you want to launch up for Shadowsocks Server. Default is 10.
 
 ### Simple Obfs Server
 - OBFS_PORT: Obfs Server port. Default is 993. This variable needs to keep the same as published port. For example: ```--env OBFS_PORT=8080 --publish 8080:8080```.
