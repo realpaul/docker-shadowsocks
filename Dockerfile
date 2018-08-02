@@ -1,8 +1,8 @@
-FROM alpine:3.6
+FROM alpine:3.8
 
-ENV SHADOWSOCKS_VERSION 3.1.0
-ENV SIMPLE_OBFS_VERSION 0.0.3
-ENV KCPTUN_VERSION 20171021
+ENV SHADOWSOCKS_VERSION 3.2.0
+ENV SIMPLE_OBFS_VERSION 0.0.5
+ENV KCPTUN_VERSION 20180316
 ENV SHADOWSOCKS_URL https://github.com/shadowsocks/shadowsocks-libev/releases/download/v$SHADOWSOCKS_VERSION/shadowsocks-libev-$SHADOWSOCKS_VERSION.tar.gz
 ENV SIMPLE_OBFS_URL https://github.com/shadowsocks/simple-obfs.git
 ENV KCPTUN_URL https://github.com/xtaci/kcptun/releases/download/v$KCPTUN_VERSION/kcptun-linux-amd64-$KCPTUN_VERSION.tar.gz
